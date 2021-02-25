@@ -1,0 +1,56 @@
+@import './../../variables.scss';
+
+.field-checkbox {
+  display: block;
+
+  &__name {
+    display: inline-block;
+    position: relative;
+    padding-left: 1.5em;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  &__name-text {
+    display: inline-block;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0.1em;
+      left: 0;
+      width: 1.2em;
+      height: 1.2em;
+      border: 2px solid $gray;
+      border-radius: 50%;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0.4em;
+      left: 0.3em;
+      width: 0.6em;
+      height: 0.6em;
+      border-radius: 50%;
+      background: $black;
+
+      opacity: 0;
+      transition: opacity ease 0.2s;
+      @at-root input:checked ~ & {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__input {
+    position: absolute;
+    top: 0.7em;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    transform: translateY(-50%);
+
+    opacity: 0;
+  }
+}
