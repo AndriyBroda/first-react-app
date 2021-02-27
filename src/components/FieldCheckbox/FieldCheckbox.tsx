@@ -7,8 +7,8 @@ function FieldCheckbox(props: any) {
   return (
     <div className='field-checkbox'>
       <label className='field-checkbox__name'>
-        <input type='checkbox' className='field-checkbox__input' {...props.inputArguments} />
-        <span className='field-checkbox__name-text'>{props.name}</span>
+        <input type='checkbox' className='field-checkbox__input' {...props.inputAttributes} />
+        <span className='field-checkbox__name-text'>{props.label}</span>
       </label>
     </div>
   );

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import FieldText from '../../components/FieldText/FieldText';
 import FieldCheckbox from '../../components/FieldCheckbox/FieldCheckbox';
 
@@ -11,24 +12,23 @@ function LandingPage() {
         <h1 className='login-form__title'>Log in</h1>
         <span className='login-form__subtitle'>
           If you don't have an account yet, please{' '}
-          <a href='#' className='link link--blue'>
+          <Link to={'/'} className='link link--blue'>
             register
-          </a>{' '}
+          </Link>{' '}
           first.
         </span>
-
         <div className='login-form__fields'>
-          <FieldText inputArguments={{ type: 'email', name: 'user-email', placeholder: 'Your e-mail' }} />
+          <FieldText inputAttributes={{ type: 'email', name: 'user-email', placeholder: 'Your e-mail' }} />
           <FieldText
-            inputArguments={{ type: 'password', name: 'user-password', placeholder: 'Your password' }}
+            inputAttributes={{ type: 'password', name: 'user-password', placeholder: 'Your password' }}
           />
         </div>
 
-        <a href='#' className='login-form__forgot-link link link--gray'>
+        <Link to={'/'} className='login-form__forgot-link link link--gray'>
           I forgot my password
-        </a>
+        </Link>
 
-        <FieldCheckbox inputArguments={{ name: 'remember-me' }} name='Remember me' />
+        <FieldCheckbox inputAttributes={{ name: 'remember-me' }} label='Remember me' />
 
         <button type='submit' className='btn login-form__submit'>
           Login
