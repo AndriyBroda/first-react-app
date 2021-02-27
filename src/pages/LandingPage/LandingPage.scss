@@ -1,0 +1,54 @@
+@import 'variables.scss';
+
+.login {
+  &-page {
+    background: url('../../login-bg.png') no-repeat center / cover;
+  }
+
+  &-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: $white;
+
+    max-width: 480px;
+    width: 100%;
+    min-height: 100vh;
+    padding: 15px 30px;
+    margin-left: auto;
+
+    &__title {
+      font-size: 24px;
+    }
+
+    &__subtitle {
+      font-weight: 500;
+    }
+
+    &__fields {
+      width: calc(100% + 10px);
+      margin: 40px -5px 0;
+
+      .field-text {
+        margin: 10px 5px;
+      }
+    }
+
+    &__forgot-link {
+      text-align: right;
+      margin-bottom: 10px;
+    }
+
+    &__submit {
+      display: block;
+      background: $blue;
+      border-radius: 4px;
+      border: none;
+      font-weight: bold;
+      color: $white;
+      width: 100%;
+      padding: 10px 15px;
+      margin-top: 80px;
+    }
+  }
+}

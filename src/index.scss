@@ -1,11 +1,54 @@
+@import 'reset.scss';
+@import 'variables.scss';
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
     'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: $black;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+button {
+  cursor: pointer;
+}
+
+.btn {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0;
+  max-width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  user-select: none;
+  text-align: center;
+  font-size: 1em; // Reset browser styles
+  font-family: inherit;
+  cursor: pointer;
+
+  background-color: $blue;
+  transition: all 0.2s ease;
+
+  &:hover,
+  &:focus {
+    background-color: lighten($blue, 10%);
+  }
+}
+
+.link {
+  &--blue {
+    color: $blue;
+  }
+  &--gray {
+    color: $gray;
+  }
 }

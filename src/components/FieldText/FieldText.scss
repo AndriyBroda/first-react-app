@@ -1,0 +1,15 @@
+@import 'variables.scss';
+
+.field-text {
+  &__input {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px solid $gray;
+    &::placeholder {
+      color: $gray;
+      font-weight: 500;
+    }
+  }
+}
