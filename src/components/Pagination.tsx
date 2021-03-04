@@ -27,17 +27,17 @@ const Pagination = ({
 
   const [currentPage, setCurrentPage] = useState(activePage);
 
-  useEffect(() => {
-    // I'm using it to display info after changing the page
-    onChangePage?.(currentPage);
-  }, [onChangePage, currentPage]);
+  const onChange = (page: number) => {
+    setCurrentPage(page);
+    onChangePage?.(page);
+  };
 
   return (
     <div className={cn(css.pagination)}>
       {withActions && (
         <button
           className={cn(css.btn, css.actionBtn)}
-          onClick={() => setCurrentPage(currentPage - 1)}
+          onClick={() => onChange(currentPage - 1)}
           disabled={currentPage - 1 <= 0}
         >
           Previous
@@ -54,7 +54,7 @@ const Pagination = ({
               [classes?.activeBtn || '']: currentPage === pageNumber
             })}
             onClick={() => {
-              setCurrentPage(pageNumber);
+              onChange(pageNumber);
             }}
             key={pageNumber}
           >
@@ -66,7 +66,7 @@ const Pagination = ({
       {withActions && (
         <button
           className={cn(css.btn, css.actionBtn)}
-          onClick={() => setCurrentPage(currentPage + 1)}
+          onClick={() => onChange(currentPage + 1)}
           disabled={currentPage + 1 > pagesNumber}
         >
           Next
