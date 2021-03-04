@@ -1,11 +1,43 @@
+$color-white: #fff;
+$color-blue: #0d6efd;
+$color-gray: #ccc;
+$color-darkgray: #777;
+
+.pagination {
+  display: inline-block;
+  border-radius: 4px;
+}
+
 .btn {
   display: inline-block;
-  padding: 10px;
+  padding: 8px 10px;
+  font-size: 0.875em;
   font-family: monospace;
-  color: blue;
-  background: white;
+  font-weight: bold;
+  color: $color-blue;
+  background: $color-white;
+  border: 1px solid $color-gray;
+  box-shadow: none;
+  margin: 0 -1px;
+  outline: none;
+  cursor: pointer;
+  &:first-child {
+    border-radius: 4px 0 0 4px;
+  }
+  &:last-child {
+    border-radius: 0 4px 4px 0;
+  }
+
   &.active {
-    color: white;
-    background: blue;
+    color: $color-white;
+    background: $color-blue;
+  }
+}
+
+.actionBtn {
+  color: $color-blue;
+  transition: all 0.4s ease;
+  &[disabled] {
+    color: $color-gray;
   }
 }

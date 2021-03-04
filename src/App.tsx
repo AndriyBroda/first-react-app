@@ -5,11 +5,12 @@ import Pagination from './components/Pagination';
 function App() {
   return (
     <Pagination
-      activePage={1}
-      totalItems={10}
+      activePage={3}
+      totalItems={11}
       perPage={3}
+      withActions={true}
       classes={{ btn: 'pagination__btn' }}
-      onChangePage={newPage => console.log('Page: ' + newPage)}
+      onChangePage={newPage => console.log(`Switched to page: #${newPage}`)}
     />
   );
 }
