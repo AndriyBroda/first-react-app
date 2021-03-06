@@ -69,6 +69,8 @@ const Timer = ({ time, step, autostart, onTick, onTimeEnd, onTimeStart, onTimePa
     if (autostart) {
       startTimer();
     }
+
+    return stopTimer;
   }, []);
 
   return (
