@@ -1,20 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
+
 import './App.scss';
+import Timer from './components/timer/Timer';
 
 function App() {
   return (
-    <div className='App'>
-      <header className='App-header'>
-        <img src={logo} className='App-logo' alt='logo' />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a className='App-link' href='https://reactjs.org' target='_blank' rel='noopener noreferrer'>
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Timer
+      time={60}
+      step={1000}
+      autostart
+      onTick={() => console.log('tick')}
+      onTimeEnd={() => console.log('End of time!')}
+      onTimeStart={() => console.log('Timer started!')}
+      onTimePause={() => console.log('Timer is paused!')}
+    />
   );
 }
 
