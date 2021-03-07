@@ -19,8 +19,7 @@ const Timer = ({ time, step, autostart, onTick, onTimeEnd, onTimeStart, onTimePa
   const [isPaused, setIsPaused] = useState(true);
   const [isFinished, setIsFinished] = useState(false);
 
-  // const timer = useRef<NodeJS.Timeout | null>(null);
-  const timer: any = useRef(null); // I used "any" because I can't clearInterval if there is a NodeJS.Timeout
+  const timer = useRef<NodeJS.Timeout | null>(null);
   const timeLeftRef = useRef(timeLeft);
 
   timeLeftRef.current = timeLeft;
@@ -37,7 +36,7 @@ const Timer = ({ time, step, autostart, onTick, onTimeEnd, onTimeStart, onTimePa
   };
 
   const stopTimer = () => {
-    clearInterval(timer.current);
+    clearInterval(timer.current!);
     setIsPaused(true);
   };
 
