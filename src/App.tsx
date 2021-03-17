@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import useProducts from './hooks/Product';
-import { IProduct } from './hooks/Product';
+import useProducts from './hooks/useProducts';
+import { IProduct } from './hooks/useProducts';
 
 function App() {
   const productsArray: IProduct[] = [
@@ -50,7 +50,7 @@ function App() {
       price: 12
     }
   ];
-  // products, page, total, changePage, applyFilter, editProduct, deleteProduct, addProduct
+
   const {
     products,
     page,
@@ -65,9 +65,10 @@ function App() {
     perPage: 5
   });
 
-  // useEffect(() => {
-  //   applyFilter({priceLess: 15, priceMore: 5, name: 'guava'})
-  // }, [])
+  useEffect(() => {
+    applyFilter({ priceLess: 15, priceMore: 9 });
+    applyFilter(null); // I'm not sure about null here, but I decided to use it as filter reset.
+  }, []);
 
   return (
     <div className='App'>
@@ -75,18 +76,22 @@ function App() {
       <p>Total pages: {total}</p>
 
       <table width='500px' style={{ tableLayout: 'fixed', textAlign: 'left' }}>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Price</th>
-        </tr>
-        {products.map(product => (
+        <thead>
           <tr>
-            <td>{product.id} </td>
-            <td>{product.name} </td>
-            <td>{product.price} </td>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
           </tr>
-        ))}
+        </thead>
+        <tbody>
+          {products.map(product => (
+            <tr key={product.id}>
+              <td>{product.id} </td>
+              <td>{product.name} </td>
+              <td>{product.price} </td>
+            </tr>
+          ))}
+        </tbody>
       </table>
 
       <div>

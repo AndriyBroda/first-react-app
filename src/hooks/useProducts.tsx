@@ -18,8 +18,24 @@ export interface IUseProducts {
 }
 
 const useProducts = ({ products, perPage }: IUseProducts) => {
-  const [currentProducts, setCurrentProducts] = useState(products);
+  const [productsList, setProductsList] = useState(products);
+  const [filterOptions, setFilterOptions] = useState<IFilterOptions | null>(null);
   const [page, setPage] = useState(1);
+
+  const currentProducts = useMemo(() => {
+    if (!filterOptions) return productsList;
+
+    const { priceLess, priceMore, name } = filterOptions;
+
+    return productsList.filter(item => {
+      let result = item.price < priceLess;
+
+      if (result && name) result = item.name === name;
+      if (result && priceMore) result = item.price > priceMore;
+
+      return result;
+    });
+  }, [productsList, filterOptions]);
 
   const currentPageProducts = useMemo(() => currentProducts.slice((page - 1) * perPage, page * perPage), [
     currentProducts,
@@ -41,7 +57,7 @@ const useProducts = ({ products, perPage }: IUseProducts) => {
   );
 
   const addProduct = (product: Omit<IProduct, 'id'>) => {
-    setCurrentProducts(prevProducts => {
+    setProductsList(prevProducts => {
       const lastID = Math.max(...prevProducts.map(item => item.id));
 
       return [...prevProducts, { id: lastID + 1, ...product }];
@@ -49,27 +65,18 @@ const useProducts = ({ products, perPage }: IUseProducts) => {
   };
 
   const editProduct = (product: IProduct) => {
-    setCurrentProducts(prevProducts => prevProducts.map(item => (item.id === product.id ? product : item)));
+    setProductsList(prevProducts => prevProducts.map(item => (item.id === product.id ? product : item)));
   };
 
   const deleteProduct = (id: number) => {
-    setCurrentProducts(prevProducts => prevProducts.filter(item => item.id !== id));
+    setProductsList(prevProducts => prevProducts.filter(item => item.id !== id));
   };
 
   const applyFilter = useCallback(
-    ({ priceLess, priceMore, name }: IFilterOptions) => {
-      setCurrentProducts(prevProducts =>
-        prevProducts.filter(item => {
-          let result = item.price < priceLess;
-
-          if (result && name) result = item.name === name;
-          if (result && priceMore) result = item.price > priceMore;
-
-          return result;
-        })
-      );
+    (options: IFilterOptions | null) => {
+      setFilterOptions(options);
     },
-    [setCurrentProducts]
+    [setFilterOptions]
   );
 
   return {
