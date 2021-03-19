@@ -1,0 +1,16 @@
+.table {
+  max-width: 540px;
+  width: 100%;
+  table-layout: fixed;
+  text-align: left;
+
+  button {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.total {
+  font-weight: bold;
+  text-align: right;
+}
