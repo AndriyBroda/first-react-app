@@ -1,20 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { Product } from '../pages/Products';
-
-interface Cart {
-  cart: CartItem[];
-  addToCart: (newItem: Product) => void;
-  removeFromCart: (id: number) => void;
-}
-
-interface CartItem extends Product {
-  quantity: number;
-}
-
-interface CartContextProviderProps {
-  children: React.ReactNode;
-}
+import { Cart, CartItem, CartContextProviderProps } from './cartContext.types';
 
 const CartContext = React.createContext<Cart>({
   cart: [],
