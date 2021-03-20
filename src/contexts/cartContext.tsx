@@ -1,38 +1,20 @@
-import React, { useCallback, useState } from 'react';
+import React, { useReducer } from 'react';
 
-import { Product } from '../pages/Products';
+import { Cart, CartContextProviderProps } from './cartContext.types';
 
-interface Cart {
-  cart: CartItem[];
-  addToCart: (newItem: Product) => void;
-  removeFromCart: (id: number) => void;
-}
+const CartContext = React.createContext<any>({});
 
-interface CartItem extends Product {
-  quantity: number;
-}
+const initialState: Cart = {
+  cart: []
+};
 
-interface CartContextProviderProps {
-  children: React.ReactNode;
-}
-
-const CartContext = React.createContext<Cart>({
-  cart: [],
-  addToCart: () => {},
-  removeFromCart: () => {}
-});
-
-const { Provider, Consumer } = CartContext;
-
-const CartContextProvider = ({ children }: CartContextProviderProps) => {
-  const [cart, setCart] = useState<CartItem[]>([]);
-
-  const addToCart = useCallback(product => {
-    setCart(prevCart => {
+const reducer = (state: Cart, action: any) => {
+  switch (action.type) {
+    case 'addToCart': {
       let isProductInCart = false;
 
-      const newCart = prevCart.map(item => {
-        if (item.id === product.id) {
+      const newCart = state.cart.map(item => {
+        if (item.id === action.payload.id) {
           isProductInCart = true;
 
           return { ...item, quantity: item.quantity + 1 };
@@ -41,17 +23,26 @@ const CartContextProvider = ({ children }: CartContextProviderProps) => {
         return item;
       });
 
-      if (!isProductInCart) newCart.push({ ...product, quantity: 1 });
+      if (!isProductInCart) newCart.push({ ...action.payload, quantity: 1 });
 
-      return newCart;
-    });
-  }, []);
+      return { cart: newCart };
+    }
 
-  const removeFromCart = useCallback(id => {
-    setCart(prevCart => prevCart.filter(item => item.id !== id));
-  }, []);
+    case 'removeFromCart': {
+      return { cart: state.cart.filter(item => item.id !== action.payload) };
+    }
 
-  return <Provider value={{ cart, addToCart, removeFromCart }}>{children}</Provider>;
+    default:
+      return state;
+  }
+};
+
+const { Provider, Consumer } = CartContext;
+
+const CartContextProvider = ({ children }: CartContextProviderProps) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  return <Provider value={{ state, dispatch }}>{children}</Provider>;
 };
 
 export { CartContext, CartContextProvider, Consumer as CartContextConsumer };

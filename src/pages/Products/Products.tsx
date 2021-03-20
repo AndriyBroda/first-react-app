@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { CartContext } from '../../contexts/cartContext';
+import { CartItem } from '../../contexts/cartContext.types';
 import css from './Products.module.scss';
 
 export interface Product {
@@ -58,7 +59,7 @@ const products: Product[] = [
 ];
 
 export const Products = () => {
-  const { cart, addToCart, removeFromCart } = useContext(CartContext);
+  const { state, dispatch } = useContext(CartContext);
 
   return (
     <div className={css.layout}>
@@ -67,7 +68,7 @@ export const Products = () => {
           <li key={product.id}>
             <h3>{product.name}</h3>
             <span>{product.price}$</span>
-            <button onClick={() => addToCart(product)}>Add to cart</button>
+            <button onClick={() => dispatch({ type: 'addToCart', payload: product })}>Add to cart</button>
           </li>
         ))}
       </ul>
@@ -81,7 +82,7 @@ export const Products = () => {
           </tr>
         </thead>
         <tbody>
-          {cart.map(item => (
+          {state.cart.map((item: CartItem) => (
             <tr key={item.id}>
               <td>{item.name}</td>
               <td>{item.price}</td>

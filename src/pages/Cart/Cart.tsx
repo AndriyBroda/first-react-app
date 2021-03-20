@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { CartContext } from '../../contexts/cartContext';
+import { CartItem } from '../../contexts/cartContext.types';
 
 import css from './Cart.module.scss';
 
 export const Cart = () => {
-  const { cart, removeFromCart } = useContext(CartContext);
+  const { state, dispatch } = useContext(CartContext);
+  console.log(state);
 
   let total = 0; // We can use reduce here, but I guess it will be better to count total in one loop.
 
@@ -24,7 +26,7 @@ export const Cart = () => {
           </tr>
         </thead>
         <tbody>
-          {cart.map(({ name, price, quantity, id }) => {
+          {state.cart.map(({ name, price, quantity, id }: CartItem) => {
             total += price * quantity;
 
             return (
@@ -34,7 +36,7 @@ export const Cart = () => {
                 <td>{quantity}</td>
                 <td>{price * quantity}$</td>
                 <td>
-                  <button onClick={() => removeFromCart(id)}>Remove</button>
+                  <button onClick={() => dispatch({ type: 'removeFromCart', payload: id })}>Remove</button>
                 </td>
               </tr>
             );
