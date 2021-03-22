@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { CartContext } from '../../contexts/cartContext';
+import { CartContext, addToCart } from '../../contexts/cartContext';
 import { CartItem } from '../../contexts/cartContext.types';
+
 import css from './Products.module.scss';
 
 export interface Product {
@@ -60,6 +61,7 @@ const products: Product[] = [
 
 export const Products = () => {
   const { state, dispatch } = useContext(CartContext);
+  const { cart } = state;
 
   return (
     <div className={css.layout}>
@@ -68,7 +70,7 @@ export const Products = () => {
           <li key={product.id}>
             <h3>{product.name}</h3>
             <span>{product.price}$</span>
-            <button onClick={() => dispatch({ type: 'addToCart', payload: product })}>Add to cart</button>
+            <button onClick={() => dispatch(addToCart(cart, product))}>Add to cart</button>
           </li>
         ))}
       </ul>

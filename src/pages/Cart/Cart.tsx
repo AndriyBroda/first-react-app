@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { CartContext } from '../../contexts/cartContext';
+import { CartContext, removeFromCart } from '../../contexts/cartContext';
 import { CartItem } from '../../contexts/cartContext.types';
 
 import css from './Cart.module.scss';
@@ -36,7 +36,7 @@ export const Cart = () => {
                 <td>{quantity}</td>
                 <td>{price * quantity}$</td>
                 <td>
-                  <button onClick={() => dispatch({ type: 'removeFromCart', payload: id })}>Remove</button>
+                  <button onClick={() => dispatch(removeFromCart(id))}>Remove</button>
                 </td>
               </tr>
             );
