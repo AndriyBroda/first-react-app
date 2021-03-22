@@ -2,7 +2,7 @@ import { Product } from '../pages/Products';
 
 export interface Cart {
   cart: CartItem[];
-  addToCart: (newItem: Product) => void;
+  addToCart: (cart: CartItem[], newItem: Product) => void;
   removeFromCart: (id: number) => void;
 }
 

@@ -58,7 +58,7 @@ const products: Product[] = [
 ];
 
 export const Products = () => {
-  const { cart, addToCart, removeFromCart } = useContext(CartContext);
+  const { cart, addToCart } = useContext(CartContext);
 
   return (
     <div className={css.layout}>
@@ -67,7 +67,7 @@ export const Products = () => {
           <li key={product.id}>
             <h3>{product.name}</h3>
             <span>{product.price}$</span>
-            <button onClick={() => addToCart(product)}>Add to cart</button>
+            <button onClick={() => addToCart(cart, product)}>Add to cart</button>
           </li>
         ))}
       </ul>

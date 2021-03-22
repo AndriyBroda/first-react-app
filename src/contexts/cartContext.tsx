@@ -1,4 +1,5 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
+import { Product } from '../pages/Products';
 
 import { Cart, CartItem, CartContextProviderProps } from './cartContext.types';
 
@@ -13,29 +14,21 @@ const { Provider, Consumer } = CartContext;
 const CartContextProvider = ({ children }: CartContextProviderProps) => {
   const [cart, setCart] = useState<CartItem[]>([]);
 
-  const addToCart = useCallback(product => {
-    setCart(prevCart => {
-      let isProductInCart = false;
+  const addToCart = (cart: CartItem[], product: Product) => {
+    cart.find(item => item.id === product.id)
+      ? incrementProductQuantity(product.id)
+      : setCart(prevCart => [...prevCart, { ...product, quantity: 1 }]);
+  };
 
-      const newCart = prevCart.map(item => {
-        if (item.id === product.id) {
-          isProductInCart = true;
+  const incrementProductQuantity = (id: number) => {
+    setCart(prevCart =>
+      prevCart.map(item => (item.id === id ? { ...item, quantity: item.quantity + 1 } : item))
+    );
+  };
 
-          return { ...item, quantity: item.quantity + 1 };
-        }
-
-        return item;
-      });
-
-      if (!isProductInCart) newCart.push({ ...product, quantity: 1 });
-
-      return newCart;
-    });
-  }, []);
-
-  const removeFromCart = useCallback(id => {
+  const removeFromCart = (id: number) => {
     setCart(prevCart => prevCart.filter(item => item.id !== id));
-  }, []);
+  };
 
   return <Provider value={{ cart, addToCart, removeFromCart }}>{children}</Provider>;
 };
