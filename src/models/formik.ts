@@ -1,3 +1,6 @@
+import { SelectProps } from '@material-ui/core/Select/Select';
+import { CheckboxProps } from '@material-ui/core/Checkbox/Checkbox';
+import { RadioGroupProps } from '@material-ui/core/RadioGroup/RadioGroup';
 export interface InputProps {
   placeholder?: string;
   label?: string;
@@ -22,4 +25,17 @@ export interface FormikTextInputProps extends FormikInput<InputProps> {
   onChange?(e: React.ChangeEvent<HTMLInputElement>): void;
 
   value?: string;
+}
+export interface FormikSelectProps extends SelectProps {
+  name: string;
+  label?: string;
+  children: React.ReactNode;
+}
+export interface FormikCheckboxProps extends CheckboxProps {
+  name: string;
+  label?: string;
+}
+export interface FormikRadioGroupProps extends RadioGroupProps {
+  name: string;
+  label?: string;
 }
