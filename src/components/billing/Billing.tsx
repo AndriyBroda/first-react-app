@@ -1,13 +1,11 @@
 import React from 'react';
 
 import { Form, Formik } from 'formik';
-import { FormikInput } from '../../components/shared/formikAdapters';
-import { BillingFormSchema } from '../../utils/validation-schemas';
 
+import { FormikInput, FormikSelect, FormikCheckbox, FormikRadioGroup } from '../shared/formikAdapters';
+
+import { BillingFormSchema } from '../../utils/validation-schemas';
 import { Box, Button, FormControlLabel, Grid, MenuItem, Radio } from '@material-ui/core';
-import { FormikSelect } from '../shared/formikAdapters/FormikSelect';
-import { FormikCheckbox } from '../shared/formikAdapters/FormikCheckbox';
-import { FormikRadioGroup } from '../shared/formikAdapters/FormikRadioGroup';
 
 import css from './Billing.module.scss';
 interface BillingFormValues {
