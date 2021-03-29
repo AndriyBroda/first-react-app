@@ -4,6 +4,7 @@ import { Form, Formik } from 'formik';
 import { FormikInput } from './components/shared/formikAdapters';
 import { UserFormSchema } from './utils/validation-schemas';
 import { Category, deleteCategory, getCategories, postCategory } from './api';
+import { loginUser, registerUser } from './api/auth';
 interface UserFormValues {
   firstName: string;
   lastName: string;
@@ -17,43 +18,38 @@ const defaultValues: UserFormValues = {
 };
 
 function App() {
-  const [categories, setCategories] = useState<Category[]>([]);
-
-  const loadCategories = async () => {
-    const res = await getCategories();
-
-    setCategories(res.data.data);
-  };
-
-  useEffect(() => {
-    loadCategories();
-  }, []);
-
-  const sendCategory = async () => {
-    const res = await postCategory({
-      iconId: 2,
-      name: 'Automotive Parts',
-      description: 'Parts for auto'
+  const createUser = () => {
+    registerUser({
+      email: 'jack_sparrow@gmail.com',
+      firstName: 'Jack',
+      lastName: 'Sparrow',
+      password: '*secure password*'
     });
-
-    console.log(res.data);
   };
 
-  const removeCategory = async (id: number) => {
-    await deleteCategory(id);
-    loadCategories();
+  const login = async () => {
+    try {
+      const res = await loginUser({
+        email: 'jack_sparrow@gmail.com',
+        password: '*secure password*'
+      });
+
+      const { access_token, refresh_token } = res.data;
+
+      localStorage.setItem('token', access_token);
+      localStorage.setItem('refresh_token', refresh_token);
+
+      console.log(res.data);
+    } catch (error) {
+      console.log('err' + error);
+    }
   };
 
   return (
     <div>
-      <button onClick={sendCategory}>Create new category</button>
-      {categories.map(item => (
-        <div key={item.id}>
-          <span>{item.id}</span>
-          <span>{item.name}</span>
-          <button onClick={() => removeCategory(item.id)}>Delete</button>
-        </div>
-      ))}
+      <button onClick={createUser}>Register</button>
+      <button onClick={login}>Login</button>
+
       <Formik<UserFormValues>
         initialValues={defaultValues}
         validationSchema={UserFormSchema}
