@@ -5,6 +5,7 @@ import { FormikInput } from './components/shared/formikAdapters';
 import { UserFormSchema } from './utils/validation-schemas';
 import { Category, deleteCategory, getCategories, postCategory } from './api';
 import { loginUser, registerUser } from './api/auth';
+import { useHotels } from './hooks/hotels/useHotels';
 interface UserFormValues {
   firstName: string;
   lastName: string;
@@ -45,10 +46,36 @@ function App() {
     }
   };
 
+  const { data, addHotel } = useHotels();
+
+  console.log(data);
+
+  const createHotel = () => {
+    addHotel({
+      name: 'Grand Hotel',
+      description: 'teststststst',
+      phone: '+380669894149',
+      address: {
+        country: 'Ukraine',
+        city: 'Lviv',
+        state: 'UA',
+        street: 'Street #10',
+        address1: 'Street #10',
+        address2: 'Street #10',
+        zip: 0,
+        location: {
+          latitude: '123123123',
+          longtitude: '123123123'
+        }
+      }
+    });
+  };
+
   return (
     <div>
       <button onClick={createUser}>Register</button>
       <button onClick={login}>Login</button>
+      <button onClick={createHotel}>Create hotel</button>
 
       <Formik<UserFormValues>
         initialValues={defaultValues}
