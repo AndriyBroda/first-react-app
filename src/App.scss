@@ -1,3 +1,5 @@
+@import 'styles/deps.scss';
+
 .App {
   text-align: center;
 }
@@ -21,11 +23,11 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: $color-white;
 }
 
 .App-link {
-  color: #61dafb;
+  color: $color-white;
 }
 
 @keyframes App-logo-spin {

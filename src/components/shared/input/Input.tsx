@@ -4,9 +4,8 @@ import { FormikInput, InputProps } from '../../../models/formik';
 export interface FormikTextInputProps extends FormikInput<InputProps> {
   type?: 'number' | 'text' | 'email';
 
-  onBlur?(e: React.FocusEvent<Element>): void;
-  onChange?(e: React.ChangeEvent<HTMLInputElement>): void;
-
+  onBlur?: (e: React.FocusEvent<Element>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value?: string;
 }
 
